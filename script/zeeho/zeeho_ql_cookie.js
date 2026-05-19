@@ -263,8 +263,11 @@ function Env(t, e) {
           request.method = method;
           $task.fetch(request).then(resolve, reject);
         } else {
-          const fn = method === "GET" ? "get" : "post";
-          if (method !== "GET") request.method = method;
+          const methodName = method.toLowerCase();
+          const fn = typeof $httpClient[methodName] === "function"
+            ? methodName
+            : method === "GET" ? "get" : "post";
+          if (fn === "post" && method !== "POST") request.method = method;
           $httpClient[fn](request, (err, response, body) => {
             if (err) {
               reject(err);
