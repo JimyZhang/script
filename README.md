@@ -25,6 +25,21 @@ Loon 插件文件中的脚本地址通常指向本仓库 `main` 分支下的 Git
 - `zeeho_ql_env_name`：青龙环境变量名，默认 `zeeho_data`
 - `zeeho_ql_env_remarks`：青龙环境变量备注，默认 `极核-ZEEHO`
 
+也可以在 Loon 里手动运行一次下面的脚本，把值写入持久化存储：
+
+```js
+$persistentStore.write("https://ql.joyzj.cn:4443", "zeeho_ql_baseurl");
+$persistentStore.write("你的client_id", "zeeho_ql_client_id");
+$persistentStore.write("你的client_secret", "zeeho_ql_client_secret");
+$persistentStore.write("zeeho_data", "zeeho_ql_env_name");
+$persistentStore.write("极核-ZEEHO", "zeeho_ql_env_remarks");
+
+$notification.post("ZEEHO青龙配置", "写入完成", "");
+$done();
+```
+
+保存成一个 Loon 脚本，手动执行一次即可。之后 `zeeho_ql_cookie.js` 就能读到这些配置。
+
 ## 开发与验证
 
 当前仓库没有包管理器清单，也没有定义自动化测试命令。
